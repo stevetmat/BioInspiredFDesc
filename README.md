@@ -1,3 +1,3 @@
 # BioInspiredFDesc
 
-The library will be available soon.
+Check the version 0.1 on the branch.
