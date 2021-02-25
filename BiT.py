@@ -37,7 +37,7 @@ def remove_species(histogram):
             new_histogram.append(histogram[i])
     return new_histogram
 
-def _validate_counts_vector(counts, suppress_cast=False):
+def validate_species_vectorr(counts, suppress_cast=False):
     """
     Validate and convert input to an acceptable counts vector type.
     """
@@ -57,7 +57,7 @@ def observed_gray_levels(counts):
     Parameters: 1-D array_like, int Vector of counts.
     Returns: distinct gray levels count.
     """
-    counts = _validate_counts_vector(counts)
+    counts = validate_species_vectorr(counts)
     return (counts != 0).sum()
 
 '''
@@ -195,7 +195,7 @@ def dMg(counts):
     Parameters: 1-D array_like, int Vector of counts.
     Returns: double
     """
-    counts = _validate_counts_vector(counts)
+    counts = validate_species_vectorr(counts)
     return (observed_gray_levels(counts) - 1) / np.log(counts.sum())
 
 
@@ -205,7 +205,7 @@ def dMn(counts):
     Parameters: 1-D array_like, int Vector of counts.
     Returns: double
     """
-    counts = _validate_counts_vector(counts)
+    counts = validate_species_vectorr(counts)
     return observed_gray_levels(counts) / np.sqrt(counts.sum())
 
 
@@ -215,7 +215,7 @@ def dBP(counts):
     Parameters: 1-D array_like, int Vector of counts.
     Returns: double
     """
-    counts = _validate_counts_vector(counts)
+    counts = validate_species_vectorr(counts)
     return counts.max() / counts.sum()
 
 
@@ -225,7 +225,7 @@ def dF(counts):
     Parameters : 1-D array_like, int Vector of counts.
     Returns: double
     """
-    counts = _validate_counts_vector(counts)
+    counts = validate_species_vectorr(counts)
     n = counts.sum()
     s = observed_gray_levels(counts)
 
@@ -253,7 +253,7 @@ def dKT(counts, lower_quantile=0.25, upper_quantile=0.75):
         Upper bound of the interquantile range. Defaults to upper quartile.
     Returns: double
     """
-    counts = _validate_counts_vector(counts)
+    counts = validate_species_vectorr(counts)
     n = len(counts)
     lower = int(np.ceil(n * lower_quantile))
     upper = int(n * upper_quantile)
@@ -268,7 +268,7 @@ def eM(counts):
     Parameters: 1-D array_like, int Vector of counts.
     Returns: double
     """
-    counts = _validate_counts_vector(counts)
+    counts = validate_species_vectorr(counts)
     numerator = np.sqrt((counts * counts).sum())
     n = counts.sum()
     s = observed_gray_levels(counts)
@@ -284,7 +284,7 @@ def dSW(counts, base=2):
         Logarithm base to use in the calculations.
     Returns: double
     """
-    counts = _validate_counts_vector(counts)
+    counts = validate_species_vectorr(counts)
     freqs = counts / counts.sum()
     nonzero_freqs = freqs[freqs.nonzero()]
     return -(nonzero_freqs * np.log(nonzero_freqs)).sum() / np.log(base)
