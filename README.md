@@ -1,3 +1,9 @@
 # BioInspiredFDesc
 
-The library will be available soon.
+Check the codes of the version 0.1 on the branch BiT-V.0.1. The most elaborate package is being prepared and will soon be available.
+For more details, please check the paper publicly available at https://arxiv.org/abs/2102.06997
+
+# Dependecies
+- Numpy
+- Scipy
+- Opencv / Pillow
