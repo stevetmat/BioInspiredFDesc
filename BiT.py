@@ -37,7 +37,7 @@ def remove_species(histogram):
             new_histogram.append(histogram[i])
     return new_histogram
 
-def validate_species_vectorr(counts, suppress_cast=False):
+def validate_species_vector(counts, suppress_cast=False):
     """
     Validate and convert input to an acceptable counts vector type.
     """
@@ -57,7 +57,7 @@ def observed_gray_levels(counts):
     Parameters: 1-D array_like, int Vector of counts.
     Returns: distinct gray levels count.
     """
-    counts = validate_species_vectorr(counts)
+    counts = validate_species_vector(counts)
     return (counts != 0).sum()
 
 '''
@@ -190,44 +190,44 @@ def dTT(data):
     return index
 
 # Margalef diversity index
-def dMg(counts):
+def dMg(species):
     """
-    Parameters: 1-D array_like, int Vector of counts.
+    Parameters: 1-D array_like, int Vector of species.
     Returns: double
     """
-    counts = validate_species_vectorr(counts)
-    return (observed_gray_levels(counts) - 1) / np.log(counts.sum())
+    species = validate_species_vector(species)
+    return (observed_gray_levels(species) - 1) / np.log(species.sum())
 
 
 # Menhinick diversity index
-def dMn(counts):
+def dMn(species):
     """
-    Parameters: 1-D array_like, int Vector of counts.
+    Parameters: 1-D array_like, int Vector of species.
     Returns: double
     """
-    counts = validate_species_vectorr(counts)
-    return observed_gray_levels(counts) / np.sqrt(counts.sum())
+    species = validate_species_vector(species)
+    return observed_gray_levels(species) / np.sqrt(species.sum())
 
 
 # Berger Parker dominance
-def dBP(counts):
+def dBP(species):
     """
-    Parameters: 1-D array_like, int Vector of counts.
+    Parameters: 1-D array_like, int Vector of species.
     Returns: double
     """
-    counts = validate_species_vectorr(counts)
-    return counts.max() / counts.sum()
+    species = validate_species_vector(species)
+    return species.max() / species.sum()
 
 
 # Fisher's alpha, a metric of diversity
-def dF(counts):
+def dF(species):
     """
-    Parameters : 1-D array_like, int Vector of counts.
+    Parameters : 1-D array_like, int Vector of species.
     Returns: double
     """
-    counts = validate_species_vectorr(counts)
-    n = counts.sum()
-    s = observed_gray_levels(counts)
+    species = validate_species_vector(species)
+    n = species.sum()
+    s = observed_gray_levels(species)
 
     def f(alpha):
         return (alpha * np.log(1 + (n / alpha)) - s) ** 2
@@ -244,48 +244,48 @@ def dF(counts):
 
 
 # Kempton-Taylor Q index of alpha diversity
-def dKT(counts, lower_quantile=0.25, upper_quantile=0.75):
+def dKT(species, lower_quantile=0.25, upper_quantile=0.75):
     """
-    Parameters: 1-D array_like, int Vector of counts.
+    Parameters: 1-D array_like, int Vector of species.
 		lower_quantile : float, optional
         Lower bound of the interquantile range. Defaults to lower quartile.
 		upper_quantile : float, optional
         Upper bound of the interquantile range. Defaults to upper quartile.
     Returns: double
     """
-    counts = validate_species_vectorr(counts)
-    n = len(counts)
+    species = validate_species_vector(species)
+    n = len(species)
     lower = int(np.ceil(n * lower_quantile))
     upper = int(n * upper_quantile)
-    sorted_counts = np.sort(counts)
-    return (upper - lower) / np.log(sorted_counts[upper] /
-                                    sorted_counts[lower])
+    sorted_species = np.sort(species)
+    return (upper - lower) / np.log(sorted_species[upper] /
+                                    sorted_species[lower])
 
 
 # McIntosh's evenness measure
-def eM(counts):
+def eM(species):
     """
-    Parameters: 1-D array_like, int Vector of counts.
+    Parameters: 1-D array_like, int Vector of species.
     Returns: double
     """
-    counts = validate_species_vectorr(counts)
-    numerator = np.sqrt((counts * counts).sum())
-    n = counts.sum()
-    s = observed_gray_levels(counts)
+    species = validate_species_vector(species)
+    numerator = np.sqrt((species * species).sum())
+    n = species.sum()
+    s = observed_gray_levels(species)
     denominator = np.sqrt((n - s + 1) ** 2 + s - 1)
     return numerator / denominator
 
 
 # Shannon-Wiener diversity index
-def dSW(counts, base=2):
+def dSW(species, base=2):
     """
-    Parameters: 1-D array_like, int Vector of counts.
+    Parameters: 1-D array_like, int Vector of species.
 		base : scalar, optional
         Logarithm base to use in the calculations.
     Returns: double
     """
-    counts = validate_species_vectorr(counts)
-    freqs = counts / counts.sum()
+    species = validate_species_vector(species)
+    freqs = species / species.sum()
     nonzero_freqs = freqs[freqs.nonzero()]
     return -(nonzero_freqs * np.log(nonzero_freqs)).sum() / np.log(base)
 
