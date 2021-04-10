@@ -122,6 +122,31 @@ def taxo_distinctiveness(data):
     return index
 
 '''
+Computes the Sum of Phylogenetic Distances index
+'''
+def sPD(data):
+    hist = histogram(data)
+    new_histogram = remove_species(hist)
+    # accumulates the sum between the distances and abundance of species i and j
+    summation1 = 0
+    # accumulates the sum between the abundance of species i and j
+    summation2 = 0
+    # receives the total of species
+    total_species = count_species(new_histogram)
+    for i in range(len(new_histogram)):
+        for j in range(1, len(new_histogram)):
+            if i == 0 and j == 1:
+                distance = j - i + 1
+            else:
+                distance = j - i + 2
+            product = distance * new_histogram[i] * new_histogram[j]
+            summation1 += product
+            summation2 += new_histogram[i] * new_histogram[j]
+    index = ((total_species * (total_species - 1)) / 2) * (summation1 / summation2)
+    return index
+
+
+'''
 Computes the intensive quadratic entropy
 '''
 def eIQ(data):
@@ -319,11 +344,12 @@ def biodiversity(data):
     dSW_index = np.float32(dSW((data.flatten())))
     return [dBP_index, dF_index, dKT_index, dMg_index, eM_ndex, dMn_index, dSW_index]
 
-def taxonomy(data):
+def taxonomy(data) :
     diversity = np.float32(taxo_diversity(data))
     distinctness = np.float32(taxo_distinctiveness(data))
+    sPD_index = np.float32(sPD(data))
     eIQ_index = np.float32(eIQ(data))
     eEQ_index = np.float32(eEQ(data))
     dNN_index = np.float32(dNN(data))
     dTT_index = np.float32(dTT(data))
-    return [diversity, distinctness, eIQ_index, eEQ_index, dNN_index, dTT_index]
+    return [diversity, distinctness, sPD_index, eIQ_index, eEQ_index, dNN_index, dTT_index]
