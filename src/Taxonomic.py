@@ -15,7 +15,7 @@ def histogram(data):
     return hist
 
 '''
-Counts the number of species existing on the image date, 
+Counts the number of existing species  on the image date, 
 and receives the histogram vector as a parameter
 '''
 def count_species(histogram):
