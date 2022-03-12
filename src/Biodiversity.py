@@ -19,7 +19,7 @@ def histogram(data):
 
 
 '''
-Counts the number of species existing on the image date, 
+Counts the number of  existing species on the image date, 
 and receives the histogram vector as a parameter
 '''
 
