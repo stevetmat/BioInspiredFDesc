@@ -220,6 +220,7 @@ def crimmins(data) :
     return new_image.copy()
 
 
+# Split channels
 def image_split(image):
     # Split channels
     b, g, r = cv2.split(image)
@@ -237,7 +238,7 @@ def image_split(image):
     b = Image.fromarray(b.astype('uint8'))
     return [r, g, b]
 
-
+# Filter
 def unsharpFilter_r_g_b(b, g, r):
     r = r.filter(ImageFilter.UnsharpMask(radius=2, percent=150))
     g = g.filter(ImageFilter.UnsharpMask(radius=2, percent=150))
