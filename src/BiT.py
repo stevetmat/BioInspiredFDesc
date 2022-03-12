@@ -343,7 +343,7 @@ def biodiversity(data):
     dMn_index = np.float32(dMn((data.flatten())))
     dSW_index = np.float32(dSW((data.flatten())))
     return [dBP_index, dF_index, dKT_index, dMg_index, eM_ndex, dMn_index, dSW_index]
-
+# Taxonomic features
 def taxonomy(data) :
     diversity = np.float32(taxo_diversity(data))
     distinctness = np.float32(taxo_distinctiveness(data))
