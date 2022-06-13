@@ -12,7 +12,6 @@ NOTICE
 ------
 
 Upon acceptance, to following folders will contain all the codes related to the recent papers:
-- Folder CMIG - Texture Analysis of Histopathologic Images Using Ecological Diversity Measures and
-Discrete Wavelet Transform. Submitted to Computerized Medical Imaging and Graphics
+- Folder ESWA - Multiresolution Texture Analysis of Histopathologic Images Using Ecological Diversity Measures. 
 - Folder EBiT - E-BiT: Extended bio-inspired texture descriptor for texture analysis and characterization. 
-Submitted to Pattern Recognition Letters
+
